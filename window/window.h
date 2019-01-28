@@ -16,6 +16,7 @@ public:
   void DrawOnline();
   //向该窗口写入字符串(y:高度,纵坐标 x:宽度,横坐标)
   void PutWindow(WINDOW *w, int y, int x,std::string& message);  
+  //从该窗口获得字符串
   void GetWindow(WINDOW *w, std::string &out_string);
   WINDOW* GetHeader();
   WINDOW* GetOutput();
