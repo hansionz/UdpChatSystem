@@ -26,7 +26,7 @@ public:
   //服务器向目的地址单向发送消息
   void SendData(const std::string &in_string, const struct sockaddr_in &peer);
 
-  //服务器向除发送发以外的所有人发送消息
+  //服务器向在线列表中的所有人发送消息
   void BroadCast();
 
   ~UdpServer();
