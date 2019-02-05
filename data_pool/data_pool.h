@@ -19,7 +19,7 @@ public:
 
 private:
   std::vector<std::string> pool;
-  int cap;//环形队列的长度
+  int cap; //环形队列的长度
   int consume_step;
   int product_step;
   sem_t blank_sem;

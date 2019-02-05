@@ -3,7 +3,6 @@
 Data::Data()
 {}
 
-//jsonlib
 //序列化
 void Data::Serialize(std::string &out_string)
 {
@@ -13,8 +12,6 @@ void Data::Serialize(std::string &out_string)
   root["message"] = message;
   root["type"] = type;
 
-  //序列化
-  //StyledWriter
   Write w;
   w.run(root, out_string);
 }
@@ -33,9 +30,7 @@ void Data::Unserialize(std::string &in_string)
 }
 
 Data::~Data()
-{
-
-}
+{}
 
 //int main()
 //{

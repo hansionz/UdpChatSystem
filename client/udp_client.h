@@ -15,6 +15,7 @@ class UdpClient
 {
 public:
   UdpClient(std::string server_ip, uint16_t server_port);
+
   void InitClient();
   
   //客户端收数据

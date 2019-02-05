@@ -18,6 +18,8 @@ public:
   void PutWindow(WINDOW *w, int y, int x,std::string& message);  
   //从该窗口获得字符串
   void GetWindow(WINDOW *w, std::string &out_string);
+
+  //获得4个窗口的句柄
   WINDOW* GetHeader();
   WINDOW* GetOutput();
   WINDOW* GetInput();

@@ -18,6 +18,7 @@ class UdpServer
 public:
   UdpServer(uint16_t _port);
 
+  //创建套接字
   void InitServer();
 
   //服务器收数据
@@ -34,6 +35,6 @@ public:
 private:
   int sock;
   int port;
-  DataPool pool;
-  std::map<uint32_t, struct sockaddr_in> online;
+  DataPool pool; // 数据池
+  std::map<uint32_t, struct sockaddr_in> online; // 在线列表
 };

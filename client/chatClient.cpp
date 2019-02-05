@@ -14,10 +14,11 @@ typedef struct{
   std::string school;
 }client_info_t;
 
-client_info_t cw;//客户端信息 nick_name-scholl:message
+client_info_t cw; //客户端信息 nick_name-scholl:message
 
-std::vector<std::string> online;//客户端展示的在线列表
+std::vector<std::string> online; //客户端展示的在线好友列表
 
+//将新上线的好友增加到客户端界面上
 static void AddUser(std::string &f)
 {
   //在线好友列表不能重复.先查找如果没有在插入
@@ -31,12 +32,14 @@ static void AddUser(std::string &f)
   online.push_back(f);
 }
 
+//如果某个客户端退出,从客户端的在线好友界面删除掉该好友
 static void DelUser(std::string &f)
 {
   //先查找如果存在则删除
   std::vector<std::string>::iterator it = online.begin();
   for(; it != online.end() ; it++)
   {
+    //删除之后必须break,否则迭代器失效
     if(*it == f){
       online.erase(it);
       break;
@@ -54,11 +57,11 @@ void *RunHeader(void* arg)
 
   //绘制标题动态效果
   size_t i = 1;
-  int y,x;//y:行 x:列
-  int dir = 0;
+  int y,x;    //y:行 x:列
+  int dir = 0;//方向
   while(1)
   {
-    //行不变，列在变，重新刷新，可以完成左右移动功能
+    //行不变,列在变,重新刷新,可以完成左右移动功能
     wp->DrawHeader();
     getmaxyx(wp->GetHeader(), y, x);//获得该窗口的行和列
     wp->PutWindow(wp->GetHeader(), y/2, i, title);
@@ -95,6 +98,7 @@ void *RunInput(void* arg)
     wp->PutWindow(wp->GetInput(), 1, 2, message);
     //从窗口获得数据，发送到服务器
     wp->GetWindow(wp->GetInput(), str);
+
     //序列化
     d.nick_name = cwp->nick_name;
     d.school = cwp->school;
@@ -182,15 +186,16 @@ int main(int argc, char* argv[])
 {
   if(argc != 3)
   {
-    std::cout << "Usage:" << argv[1] << " [server_ip][serverport]" << std::endl; 
+    std::cout << "Usage:" << argv[1] << " [server_ip][server_port]" << std::endl; 
     return 1;
   }
 
-  std::cout << "Please Enter You NickName$ ";
+  std::cout << "Please Enter You NickName$ ";//昵称
   std::cin >> cw.nick_name;
-  std::cout << "Please Enter You School$ ";
+  std::cout << "Please Enter You School$ ";  //学校
   std::cin >> cw.school;
 
+  //注册SIGINT的处理函数
   signal(SIGINT, SendQuit);
 
   UdpClient client(argv[1], atoi(argv[2]));
@@ -199,6 +204,7 @@ int main(int argc, char* argv[])
   Window w;
   cw.clientp = &client;
   cw.winp = &w;
+
   pthread_t header,output_online,input;
   pthread_create(&header, NULL, RunHeader, (void *)&cw);
   pthread_create(&output_online, NULL, RunOutputOnline, (void *)&cw);
@@ -216,12 +222,12 @@ int main(int argc, char* argv[])
   //pthread_join(header, NULL);
   //pthread_join(output_online, NULL);
   //pthread_join(input, NULL);
- // std::string message;
- // while(1)
- // {
- //   std::cout << "Please Enter$ ";
- //   std::cin >> message;
- //   client.SendData(message);
- // }
+  // std::string message;
+  // while(1)
+  // {
+  //   std::cout << "Please Enter$ ";
+  //   std::cin >> message;
+  //   client.SendData(message);
+  // }
   return 0;
 }
