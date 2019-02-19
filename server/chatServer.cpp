@@ -6,7 +6,7 @@ void* RecvMess(void *arg)
   std::string message;
   while(1)
   {
-    //RecvData中负责将数据放到数据池中
+    // RecvData中负责将数据放到数据池中
     us->RecvData(message);
     std::cout << "test:" << message << std::endl;
   }

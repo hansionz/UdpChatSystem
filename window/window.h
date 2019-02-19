@@ -25,6 +25,7 @@ public:
   WINDOW* GetInput();
   WINDOW* GetOnline();
   ~Window();
+
 private:
   WINDOW *header;
   WINDOW *output;
