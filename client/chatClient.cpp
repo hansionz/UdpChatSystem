@@ -81,7 +81,7 @@ void *RunHeader(void* arg)
   }
 }
 
-//输入窗口绘制线程
+// 输入窗口绘制线程
 void *RunInput(void* arg)
 {
   client_info_t *cwp = (client_info_t*)arg;
